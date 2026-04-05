@@ -1,0 +1,350 @@
+{
+  "Apple___Apple_scab": {
+    "disease": "Apple Scab",
+    "pathogen": "Venturia inaequalis (Fungus)",
+    "symptoms": "Olive-green to black spots on leaves and fruit. Leaves may curl and drop early.",
+    "treatment": [
+      {
+        "medicine": "Captan 50 WP",
+        "type": "Fungicide",
+        "dosage": "2.5 g per litre of water",
+        "frequency": "Every 10-14 days during wet weather",
+        "precautions": "Wear gloves and mask. Do not spray near water bodies. PHI: 7 days."
+      },
+      {
+        "medicine": "Mancozeb 75 WP",
+        "type": "Fungicide",
+        "dosage": "2.0 g per litre of water",
+        "frequency": "Spray at 10-day intervals",
+        "precautions": "Avoid inhalation. Do not mix with alkaline pesticides. PHI: 21 days."
+      }
+    ],
+    "cultural_practices": "Prune infected branches. Collect and destroy fallen leaves. Improve air circulation.",
+    "severity": "Moderate"
+  },
+  "Apple___Black_rot": {
+    "disease": "Apple Black Rot",
+    "pathogen": "Botryosphaeria obtusa (Fungus)",
+    "symptoms": "Brown rotting lesions on fruit. Purple spots on leaves with frog-eye appearance.",
+    "treatment": [
+      {
+        "medicine": "Thiophanate-methyl 70 WP",
+        "type": "Systemic Fungicide",
+        "dosage": "1.5 g per litre of water",
+        "frequency": "Every 14 days from petal fall",
+        "precautions": "Resistance may develop with repeated use. Rotate fungicides. PHI: 7 days."
+      },
+      {
+        "medicine": "Copper Oxychloride 50 WP",
+        "type": "Protective Fungicide",
+        "dosage": "3.0 g per litre of water",
+        "frequency": "Apply before rain events",
+        "precautions": "Phytotoxic on sensitive varieties. Avoid in hot weather. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Remove mummified fruit. Prune dead wood. Sterilize pruning tools.",
+    "severity": "High"
+  },
+  "Apple___Cedar_apple_rust": {
+    "disease": "Cedar Apple Rust",
+    "pathogen": "Gymnosporangium juniperi-virginianae (Fungus)",
+    "symptoms": "Bright orange-yellow spots on upper leaf surface. Tube-like structures on leaf undersides.",
+    "treatment": [
+      {
+        "medicine": "Myclobutanil (Rally 40 WSP)",
+        "type": "Systemic Fungicide",
+        "dosage": "0.4 g per litre of water",
+        "frequency": "Apply at pink bud stage, repeat every 7-10 days",
+        "precautions": "Do not use near water. Keep away from children. PHI: 7 days."
+      }
+    ],
+    "cultural_practices": "Remove nearby juniper/cedar trees. Plant resistant apple varieties.",
+    "severity": "Moderate"
+  },
+  "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
+    "disease": "Gray Leaf Spot (Cercospora)",
+    "pathogen": "Cercospora zeae-maydis (Fungus)",
+    "symptoms": "Rectangular gray to tan lesions parallel to leaf veins. Lesions have yellow halos.",
+    "treatment": [
+      {
+        "medicine": "Azoxystrobin 23 SC",
+        "type": "Strobilurin Fungicide",
+        "dosage": "1.0 ml per litre of water",
+        "frequency": "Apply at VT/R1 growth stage",
+        "precautions": "Rotate mode of action to prevent resistance. PHI: 7 days."
+      },
+      {
+        "medicine": "Propiconazole 25 EC",
+        "type": "Triazole Fungicide",
+        "dosage": "1.0 ml per litre of water",
+        "frequency": "Apply preventively before disease onset",
+        "precautions": "Wear protective clothing. Avoid drift. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Crop rotation. Tillage to reduce residue. Plant resistant hybrids.",
+    "severity": "Moderate to High"
+  },
+  "Corn_(maize)___Common_rust_": {
+    "disease": "Common Rust of Maize",
+    "pathogen": "Puccinia sorghi (Fungus)",
+    "symptoms": "Brick-red to brown powdery pustules on both leaf surfaces. Leaves turn yellow.",
+    "treatment": [
+      {
+        "medicine": "Mancozeb 75 WP",
+        "type": "Protective Fungicide",
+        "dosage": "2.5 g per litre of water",
+        "frequency": "Spray every 10-14 days",
+        "precautions": "Do not apply during pollination. PHI: 21 days."
+      },
+      {
+        "medicine": "Tebuconazole 25.9 EC",
+        "type": "Systemic Fungicide",
+        "dosage": "0.5 ml per litre of water",
+        "frequency": "Apply at first sign of disease",
+        "precautions": "Highly toxic to aquatic organisms. PHI: 7 days."
+      }
+    ],
+    "cultural_practices": "Early planting. Use resistant varieties. Balanced fertilization.",
+    "severity": "Moderate"
+  },
+  "Corn_(maize)___Northern_Leaf_Blight": {
+    "disease": "Northern Leaf Blight",
+    "pathogen": "Exserohilum turcicum (Fungus)",
+    "symptoms": "Long, cigar-shaped gray-green to tan lesions (2-6 inches). Lesions appear water-soaked initially.",
+    "treatment": [
+      {
+        "medicine": "Chlorothalonil 75 WP",
+        "type": "Broad-spectrum Fungicide",
+        "dosage": "2.0 g per litre of water",
+        "frequency": "Apply at tasseling stage",
+        "precautions": "Eye and skin irritant. Use full PPE. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Rotate crops. Till infected debris. Plant tolerant hybrids.",
+    "severity": "High"
+  },
+  "Grape___Black_rot": {
+    "disease": "Grape Black Rot",
+    "pathogen": "Guignardia bidwellii (Fungus)",
+    "symptoms": "Circular tan spots with dark borders on leaves. Black mummified berries.",
+    "treatment": [
+      {
+        "medicine": "Myclobutanil 20 EW",
+        "type": "Systemic Fungicide",
+        "dosage": "0.5 ml per litre of water",
+        "frequency": "Every 10 days from bud break",
+        "precautions": "Harmful if swallowed. Wash hands after use. PHI: 14 days."
+      },
+      {
+        "medicine": "Captan 50 WP",
+        "type": "Protective Fungicide",
+        "dosage": "2.5 g per litre of water",
+        "frequency": "Cover sprays every 7-10 days",
+        "precautions": "Irritating to eyes and skin. Avoid contact. PHI: 7 days."
+      }
+    ],
+    "cultural_practices": "Remove mummified clusters. Prune for air circulation. Destroy infected material.",
+    "severity": "High"
+  },
+  "Potato___Early_blight": {
+    "disease": "Early Blight of Potato",
+    "pathogen": "Alternaria solani (Fungus)",
+    "symptoms": "Dark brown spots with concentric rings (target-board pattern) on older leaves.",
+    "treatment": [
+      {
+        "medicine": "Mancozeb 75 WP",
+        "type": "Protective Fungicide",
+        "dosage": "2.0-2.5 g per litre of water",
+        "frequency": "Spray every 7-10 days",
+        "precautions": "Wear mask during application. Avoid during windy conditions. PHI: 7 days."
+      },
+      {
+        "medicine": "Chlorothalonil 75 WP",
+        "type": "Contact Fungicide",
+        "dosage": "2.0 g per litre of water",
+        "frequency": "Begin at first symptom appearance",
+        "precautions": "Do not enter treated field for 12 hours. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Crop rotation (3 years). Use certified seed. Avoid overhead irrigation.",
+    "severity": "Moderate"
+  },
+  "Potato___Late_blight": {
+    "disease": "Late Blight of Potato",
+    "pathogen": "Phytophthora infestans (Oomycete)",
+    "symptoms": "Water-soaked, pale green lesions turning dark brown with white mold on underside.",
+    "treatment": [
+      {
+        "medicine": "Metalaxyl + Mancozeb (Ridomil Gold)",
+        "type": "Systemic + Protective Fungicide",
+        "dosage": "2.5 g per litre of water",
+        "frequency": "Every 7-10 days in humid conditions",
+        "precautions": "CRITICAL: Act fast - disease spreads rapidly. PHI: 14 days."
+      },
+      {
+        "medicine": "Cymoxanil + Mancozeb",
+        "type": "Combination Fungicide",
+        "dosage": "3.0 g per litre of water",
+        "frequency": "Apply preventively before wet weather",
+        "precautions": "Use full protective gear. Highly toxic. PHI: 21 days."
+      }
+    ],
+    "cultural_practices": "Plant resistant varieties. Avoid overhead irrigation. Destroy infected tubers.",
+    "severity": "Very High - Emergency Treatment"
+  },
+  "Tomato___Early_blight": {
+    "disease": "Early Blight of Tomato",
+    "pathogen": "Alternaria solani / A. tomatophila (Fungus)",
+    "symptoms": "Dark concentric ring lesions on lower leaves. Yellow halo around spots. Stem lesions.",
+    "treatment": [
+      {
+        "medicine": "Copper Hydroxide 77 WP",
+        "type": "Protective Fungicide",
+        "dosage": "2.5 g per litre of water",
+        "frequency": "Every 7-10 days",
+        "precautions": "Copper accumulation in soil with repeated use. PHI: 7 days."
+      },
+      {
+        "medicine": "Azoxystrobin + Difenoconazole",
+        "type": "Combination Fungicide",
+        "dosage": "1.0 ml per litre of water",
+        "frequency": "Apply at first symptom",
+        "precautions": "Rotate fungicides. May cause phytotoxicity on stressed plants. PHI: 3 days."
+      }
+    ],
+    "cultural_practices": "Stake plants for air flow. Mulch to reduce splash. Remove lower infected leaves.",
+    "severity": "Moderate"
+  },
+  "Tomato___Late_blight": {
+    "disease": "Late Blight of Tomato",
+    "pathogen": "Phytophthora infestans (Oomycete)",
+    "symptoms": "Greasy, water-soaked lesions on leaves and stems. White mold in humid conditions.",
+    "treatment": [
+      {
+        "medicine": "Metalaxyl-M + Mancozeb",
+        "type": "Systemic Fungicide",
+        "dosage": "2.5 g per litre of water",
+        "frequency": "Every 5-7 days in wet weather",
+        "precautions": "Very fast-spreading disease. Begin treatment at first symptoms. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Avoid wetting foliage. Destroy crop debris. Use resistant varieties.",
+    "severity": "Very High"
+  },
+  "Tomato___Leaf_Miner": {
+    "disease": "Tomato Leaf Miner",
+    "pathogen": "Tuta absoluta (Insect)",
+    "symptoms": "Serpentine mines on leaves. Silvery blotches. Larvae inside leaf tissue.",
+    "treatment": [
+      {
+        "medicine": "Spinosad 45 SC",
+        "type": "Bio-insecticide",
+        "dosage": "0.3 ml per litre of water",
+        "frequency": "Every 7-10 days",
+        "precautions": "Do not apply when bees are active. PHI: 3 days."
+      },
+      {
+        "medicine": "Chlorantraniliprole 18.5 SC",
+        "type": "Insecticide (Rynaxypyr)",
+        "dosage": "0.3 ml per litre of water",
+        "frequency": "At first sign of mining",
+        "precautions": "Low toxicity to mammals. Avoid spray on flowers. PHI: 1 day."
+      }
+    ],
+    "cultural_practices": "Use yellow sticky traps. Remove infested leaves. Encourage natural predators.",
+    "severity": "High"
+  },
+  "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+    "disease": "Tomato Yellow Leaf Curl Virus (TYLCV)",
+    "pathogen": "Begomovirus (Virus - Whitefly transmitted)",
+    "symptoms": "Yellowing and upward curling of young leaves. Stunted growth. Flower drop.",
+    "treatment": [
+      {
+        "medicine": "Imidacloprid 17.8 SL",
+        "type": "Systemic Insecticide (for vector control)",
+        "dosage": "0.5 ml per litre of water",
+        "frequency": "Preventive application every 15 days for whitefly control",
+        "precautions": "No direct cure for virus. Target whitefly vector. PHI: 7 days."
+      },
+      {
+        "medicine": "Thiamethoxam 25 WG",
+        "type": "Neonicotinoid Insecticide",
+        "dosage": "0.4 g per litre of water",
+        "frequency": "Rotate with other insecticide classes",
+        "precautions": "Extremely toxic to bees. Do not spray during flowering. PHI: 3 days."
+      }
+    ],
+    "cultural_practices": "Use reflective mulch to repel whiteflies. Remove infected plants. Use resistant varieties.",
+    "severity": "Very High - No Cure"
+  },
+  "Tomato___Bacterial_spot": {
+    "disease": "Bacterial Spot of Tomato",
+    "pathogen": "Xanthomonas species (Bacteria)",
+    "symptoms": "Small, dark, water-soaked spots on leaves with yellow halos. Lesions on fruit.",
+    "treatment": [
+      {
+        "medicine": "Copper Oxychloride + Streptomycin",
+        "type": "Bactericide Combination",
+        "dosage": "3.0 g + 0.2 g per litre of water",
+        "frequency": "Every 7 days in wet conditions",
+        "precautions": "Copper resistance may develop. Rotate bactericides. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Use disease-free seed. Avoid overhead irrigation. Remove infected plants promptly.",
+    "severity": "Moderate to High"
+  },
+  "Rice___Brown_Spot": {
+    "disease": "Brown Spot of Rice",
+    "pathogen": "Cochliobolus miyabeanus (Fungus)",
+    "symptoms": "Oval to circular brown spots on leaves with gray centers. Grain discoloration.",
+    "treatment": [
+      {
+        "medicine": "Tricyclazole 75 WP",
+        "type": "Systemic Fungicide",
+        "dosage": "0.6 g per litre of water",
+        "frequency": "Apply at booting and heading stage",
+        "precautions": "Wear protective gear. PHI: 21 days before harvest."
+      },
+      {
+        "medicine": "Propiconazole 25 EC",
+        "type": "Triazole Fungicide",
+        "dosage": "1.0 ml per litre of water",
+        "frequency": "Apply at first sign of disease",
+        "precautions": "Avoid contact with skin. PHI: 14 days."
+      }
+    ],
+    "cultural_practices": "Balanced fertilization (avoid excess N). Proper water management. Certified seed.",
+    "severity": "Moderate"
+  },
+  "Wheat___Leaf_rust": {
+    "disease": "Wheat Leaf Rust",
+    "pathogen": "Puccinia triticina (Fungus)",
+    "symptoms": "Orange-red pustules on upper leaf surface. Pustules rupture releasing spores.",
+    "treatment": [
+      {
+        "medicine": "Propiconazole 25 EC",
+        "type": "Systemic Fungicide",
+        "dosage": "1.0 ml per litre of water",
+        "frequency": "Apply at flag leaf stage",
+        "precautions": "Do not apply during grain fill. PHI: 35 days."
+      },
+      {
+        "medicine": "Tebuconazole 25.9 EC",
+        "type": "Triazole Fungicide",
+        "dosage": "0.5 ml per litre of water",
+        "frequency": "One application at heading",
+        "precautions": "Toxic to aquatic organisms. PHI: 35 days."
+      }
+    ],
+    "cultural_practices": "Plant resistant varieties. Timely sowing. Avoid late planting.",
+    "severity": "High"
+  },
+  "healthy": {
+    "disease": "No Disease Detected",
+    "pathogen": "None",
+    "symptoms": "Plant appears healthy with no visible disease symptoms.",
+    "treatment": [],
+    "cultural_practices": "Continue regular monitoring. Maintain proper fertilization, irrigation and pest management as preventive measures.",
+    "severity": "None"
+  }
+}
