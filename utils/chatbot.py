@@ -1,12 +1,25 @@
 """
-Rule-Based Agricultural Chatbot
-Answers farming questions using pattern matching and a knowledge base
-No paid APIs - completely free and offline
+Agricultural Chatbot
+--------------------
+Fast rule-based answers for well-known farming topics.
+For anything the rule engine can't answer, falls back to the Gemini AI
+(via the official google-genai SDK) for a rich, context-aware response.
 """
 
+import os
 import re
 import random
+from typing import Optional
 
+# ── Google Gen AI SDK ──────────────────────────────────────────────────────
+try:
+    from google import genai
+    from google.genai import types as genai_types
+    _GENAI_AVAILABLE = True
+except ImportError:
+    _GENAI_AVAILABLE = False
+
+# ── Knowledge base (fast, offline answers) ────────────────────────────────
 KNOWLEDGE_BASE = {
     "greetings": {
         "patterns": [r"hi\b", r"hello", r"hey", r"namaskar", r"namaste", r"good morning", r"good evening"],
@@ -216,7 +229,7 @@ KNOWLEDGE_BASE = {
             "• **Disease Detection** - Upload leaf photo\n"
             "• **Weather** - City-wise weather & advice"
         ]
-    }
+    },
 }
 
 FALLBACK_RESPONSES = [
@@ -226,78 +239,159 @@ FALLBACK_RESPONSES = [
     "Good question! Please consult your local agriculture extension officer for region-specific advice. Meanwhile, I can help with general farming queries! 🙏",
 ]
 
+# ── Gemini AI fallback ─────────────────────────────────────────────────────
+
+_SYSTEM_INSTRUCTION = (
+    "You are AgriBot, a knowledgeable and friendly AI assistant for Indian farmers. "
+    "Answer agriculture-related questions clearly and practically. "
+    "Focus on crops, soil, fertilizers, pest management, irrigation, market prices, "
+    "and government schemes relevant to India. "
+    "Keep answers concise (under 200 words) and use simple language. "
+    "If a question is unrelated to agriculture, politely redirect to farming topics."
+)
+
+_GEMINI_MODELS = [
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-8b",
+]
+
+
+def _get_gemini_response(user_input: str, api_key: str) -> Optional[str]:
+    """
+    Call Gemini with the official SDK and return the response text.
+    Returns None on any failure so the caller can fall back gracefully.
+    """
+    if not _GENAI_AVAILABLE or not api_key:
+        return None
+
+    try:
+        client = genai.Client(api_key=api_key)
+
+        last_error: Exception | None = None
+        for model_name in _GEMINI_MODELS:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=user_input,
+                    config=genai_types.GenerateContentConfig(
+                        system_instruction=_SYSTEM_INSTRUCTION,
+                        temperature=0.7,
+                        max_output_tokens=350,
+                    ),
+                )
+                text = (response.text or "").strip()
+                return text if text else None
+
+            except Exception as exc:  # noqa: BLE001
+                err_str = str(exc).lower()
+                if "404" in err_str or "not found" in err_str or "not supported" in err_str:
+                    last_error = exc
+                    continue
+                # Non-availability error → surface as None so rule-base wins.
+                return None
+
+    except Exception:  # noqa: BLE001
+        return None
+
+    return None  # All models exhausted
+
+
+# ── Public API ─────────────────────────────────────────────────────────────
 
 def get_chatbot_response(user_input: str, language: str = "en") -> str:
-    """Generate chatbot response based on user input"""
+    """
+    Return a chatbot response.
+
+    Priority:
+      1. Fast rule-based match from KNOWLEDGE_BASE
+      2. Crop-specific static info
+      3. Gemini AI (if GEMINI_API_KEY is set in the environment)
+      4. Static fallback message
+    """
     user_lower = user_input.lower().strip()
 
-    # Check knowledge base
+    # ── 1. Knowledge base ──────────────────────────────────────────────────
     for category, data in KNOWLEDGE_BASE.items():
         for pattern in data["patterns"]:
             if re.search(pattern, user_lower):
-                response = random.choice(data["responses"])
-                return response
+                return random.choice(data["responses"])
 
-    # Check for numbers/specific data requests
-    if re.search(r'\d+', user_input) and re.search(r'(acre|hectare|kg|litre)', user_lower):
-        return ("📊 For specific quantity calculations, I recommend using our Crop Recommendation tool "
-                "with your exact field measurements. For precise fertilizer dosage calculations, "
-                "consult your local agriculture officer who can consider your specific soil test results.")
+    # ── 2. Quantity / measurement queries ─────────────────────────────────
+    if re.search(r"\d+", user_input) and re.search(r"(acre|hectare|kg|litre)", user_lower):
+        return (
+            "📊 For specific quantity calculations, I recommend using our Crop Recommendation tool "
+            "with your exact field measurements. For precise fertilizer dosage calculations, "
+            "consult your local agriculture officer who can consider your specific soil test results."
+        )
 
-    # Crop-specific queries
-    crops = ['rice', 'wheat', 'maize', 'cotton', 'sugarcane', 'soybean', 'onion', 'tomato',
-             'potato', 'groundnut', 'paddy', 'bajra', 'jowar', 'ragi']
+    # ── 3. Crop-specific static info ───────────────────────────────────────
+    crops = [
+        "rice", "wheat", "maize", "cotton", "sugarcane", "soybean",
+        "onion", "tomato", "potato", "groundnut", "paddy", "bajra", "jowar", "ragi",
+    ]
     for crop in crops:
         if crop in user_lower:
             return get_crop_info(crop)
 
+    # ── 4. Gemini AI fallback ──────────────────────────────────────────────
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if api_key and _GENAI_AVAILABLE:
+        gemini_answer = _get_gemini_response(user_input, api_key)
+        if gemini_answer:
+            return f"🤖 *(AI Answer)*\n\n{gemini_answer}"
+
+    # ── 5. Static fallback ─────────────────────────────────────────────────
     return random.choice(FALLBACK_RESPONSES)
 
 
+# ── Crop detail helper ────────────────────────────────────────────────────
+
 def get_crop_info(crop: str) -> str:
-    """Return specific crop information"""
+    """Return a static farming guide for common crops."""
     crop_details = {
-        'rice': {
-            'season': 'Kharif (June-Nov)', 'duration': '120-150 days',
-            'water': 'High (1200-2000 mm)', 'temp': '20-35°C', 'ph': '5.5-6.5',
-            'fertilizer': 'N:P:K = 120:60:60 kg/ha',
-            'tip': 'Transplanting at 21-25 days old seedlings gives better yield.',
+        "rice": {
+            "season": "Kharif (June-Nov)", "duration": "120-150 days",
+            "water": "High (1200-2000 mm)", "temp": "20-35°C", "ph": "5.5-6.5",
+            "fertilizer": "N:P:K = 120:60:60 kg/ha",
+            "tip": "Transplanting at 21-25 days old seedlings gives better yield.",
         },
-        'wheat': {
-            'season': 'Rabi (Nov-Mar)', 'duration': '110-130 days',
-            'water': 'Medium (450-650 mm)', 'temp': '15-25°C', 'ph': '6.0-7.5',
-            'fertilizer': 'N:P:K = 120:60:40 kg/ha',
-            'tip': 'Timely sowing (Nov 15 - Dec 15) is critical for yield in North India.',
+        "wheat": {
+            "season": "Rabi (Nov-Mar)", "duration": "110-130 days",
+            "water": "Medium (450-650 mm)", "temp": "15-25°C", "ph": "6.0-7.5",
+            "fertilizer": "N:P:K = 120:60:40 kg/ha",
+            "tip": "Timely sowing (Nov 15 - Dec 15) is critical for yield in North India.",
         },
-        'maize': {
-            'season': 'Kharif/Rabi', 'duration': '90-120 days',
-            'water': 'Medium (600-900 mm)', 'temp': '21-27°C', 'ph': '5.8-7.0',
-            'fertilizer': 'N:P:K = 150:75:75 kg/ha',
-            'tip': 'Tasseling stage is most critical - ensure no water stress.',
+        "maize": {
+            "season": "Kharif/Rabi", "duration": "90-120 days",
+            "water": "Medium (600-900 mm)", "temp": "21-27°C", "ph": "5.8-7.0",
+            "fertilizer": "N:P:K = 150:75:75 kg/ha",
+            "tip": "Tasseling stage is most critical - ensure no water stress.",
         },
-        'cotton': {
-            'season': 'Kharif (May-Nov)', 'duration': '150-180 days',
-            'water': 'Medium (700-1200 mm)', 'temp': '21-35°C', 'ph': '5.8-8.0',
-            'fertilizer': 'N:P:K = 120:60:60 kg/ha (Bt cotton)',
-            'tip': 'Use Bt cotton hybrids for bollworm resistance.',
+        "cotton": {
+            "season": "Kharif (May-Nov)", "duration": "150-180 days",
+            "water": "Medium (700-1200 mm)", "temp": "21-35°C", "ph": "5.8-8.0",
+            "fertilizer": "N:P:K = 120:60:60 kg/ha (Bt cotton)",
+            "tip": "Use Bt cotton hybrids for bollworm resistance.",
         },
-        'tomato': {
-            'season': 'Year-round', 'duration': '60-90 days',
-            'water': 'Medium-High (400-600 mm)', 'temp': '18-27°C', 'ph': '6.0-7.0',
-            'fertilizer': 'N:P:K = 120:80:80 kg/ha',
-            'tip': 'Staking and pruning suckers improves yield and reduces disease.',
+        "tomato": {
+            "season": "Year-round", "duration": "60-90 days",
+            "water": "Medium-High (400-600 mm)", "temp": "18-27°C", "ph": "6.0-7.0",
+            "fertilizer": "N:P:K = 120:80:80 kg/ha",
+            "tip": "Staking and pruning suckers improves yield and reduces disease.",
         },
-        'potato': {
-            'season': 'Rabi (Oct-Feb)', 'duration': '75-120 days',
-            'water': 'Medium (500-700 mm)', 'temp': '15-25°C', 'ph': '5.0-6.0',
-            'fertilizer': 'N:P:K = 180:100:100 kg/ha',
-            'tip': 'Use certified seed tubers to avoid virus diseases.',
+        "potato": {
+            "season": "Rabi (Oct-Feb)", "duration": "75-120 days",
+            "water": "Medium (500-700 mm)", "temp": "15-25°C", "ph": "5.0-6.0",
+            "fertilizer": "N:P:K = 180:100:100 kg/ha",
+            "tip": "Use certified seed tubers to avoid virus diseases.",
         },
-        'onion': {
-            'season': 'Rabi/Kharif', 'duration': '120-150 days',
-            'water': 'Medium (350-550 mm)', 'temp': '13-24°C', 'ph': '6.0-7.5',
-            'fertilizer': 'N:P:K = 100:50:50 kg/ha',
-            'tip': 'Stop irrigation 10 days before harvest for better storage.',
+        "onion": {
+            "season": "Rabi/Kharif", "duration": "120-150 days",
+            "water": "Medium (350-550 mm)", "temp": "13-24°C", "ph": "6.0-7.5",
+            "fertilizer": "N:P:K = 100:50:50 kg/ha",
+            "tip": "Stop irrigation 10 days before harvest for better storage.",
         },
     }
 
@@ -314,9 +408,9 @@ def get_crop_info(crop: str) -> str:
             f"💡 **Pro Tip:** {info['tip']}\n\n"
             f"Use our **Crop Recommendation** tool for AI-powered suggestions!"
         )
-    else:
-        return (
-            f"I have limited specific information on {crop}. "
-            f"Please use our **Crop Recommendation** tool with your soil parameters, "
-            f"or consult your local KVK for detailed guidance on {crop} cultivation."
-        )
+
+    return (
+        f"I have limited specific information on {crop}. "
+        f"Please use our **Crop Recommendation** tool with your soil parameters, "
+        f"or consult your local KVK for detailed guidance on {crop} cultivation."
+    )
